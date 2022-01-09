@@ -1,0 +1,15 @@
+h1 {
+  text-align: right;
+}
+.MainIcon {
+  display: block;
+  margin: 0;
+}
+h3 {
+  text-align: right;
+  font-weight: 100;
+  font-size: small;
+}
+.textbox {
+  width: fit-content;
+}
