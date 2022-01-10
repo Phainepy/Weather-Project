@@ -3,7 +3,8 @@ h1 {
 }
 .MainIcon {
   display: block;
-  margin: 0;
+  margin: 5;
+  padding-top: 10;
 }
 h3 {
   text-align: right;
@@ -12,4 +13,10 @@ h3 {
 }
 .textbox {
   width: fit-content;
+}
+.fahrenheit-link {
+  outline: 0;
+}
+.celcius-link {
+  outline: 0;
 }
