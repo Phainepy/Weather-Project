@@ -90,7 +90,7 @@ function convertToCelcius(event){
 }
 
 //Function handles current temp showing.
-function showCurrentTemp(){
+function showCurrentTemp(response){
   let temperature = Math.round(response.data.main.temp);
   console.log(` It is currently ${temperature}°C where you live.`);
     //let h1 = document.querySelector("h1");
@@ -101,7 +101,6 @@ function showCurrentTemp(){
 function handlePosition(position){
   let latitude= position.coords.latitude;
   let longitude= position.coords.longitude;
-  console.log(latitude);
   let units = "metric";
   let apiKey = "d13aba718089eac946cbe226bfd205f4";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apiKey}`;
