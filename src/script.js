@@ -89,6 +89,25 @@ function convertToCelcius(event){
   temperatureElement.innerHTML = Math.round(((temperature) - 32) / 1.8);
 }
 
+//Function handles current temp showing.
+function showCurrentTemp(){
+  let temperature = Math.round(response.data.main.temp);
+  console.log(` It is currently ${temperature}°C where you live.`);
+    //let h1 = document.querySelector("h1");
+    //h1.innerHTML = `Your Outside temperature is ${temperature} C`;
+}
+
+//Function handlePosition asks for Geolocation data and then uses it
+function handlePosition(position){
+  let latitude= position.coords.latitude;
+  let longitude= position.coords.longitude;
+  console.log(latitude);
+  let units = "metric";
+  let apiKey = "d13aba718089eac946cbe226bfd205f4";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apiKey}`;
+  axios.get(apiUrl).then(showCurrentTemp)
+}
+
 //Search engine, when searching for a city, display the city name on the page after the user submits form.
 let form = document.querySelector("#search-form");
 form.addEventListener("submit",getCity);
@@ -101,3 +120,6 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 // Select C Link and call function to convert to Celcius
 let celciusLink = document.querySelector("#celcius-link");
 celciusLink.addEventListener("click", convertToCelcius);
+
+//Geolocation data
+navigator.geolocation.getCurrentPosition(handlePosition)
