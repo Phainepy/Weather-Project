@@ -21,7 +21,19 @@ let weather = {
   }
 };
 
+//Below is smart time. Fetching currrent Day, Hour, Minutes.
+let currentTime = new Date();
+let days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let currentDay = days[currentTime.getDay()];
+let currentHour = currentTime.getHours();
+let currentMinutes = currentTime.getMinutes();
+let date = `${currentDay} ${currentHour}:${currentMinutes}`;
 
+
+let BigDate =document.querySelector("#day-hour");
+BigDate.innerHTML = `${date}`;
+
+//Function getCity is to change the name of the city when the userr types in a city name.
 function getCity(event){
   event.preventDefault();
   let searchInput = document.querySelector("#search-text-input");
@@ -36,19 +48,19 @@ function getCity(event){
   }
 
   if (askCityName.length > 0) {
-         if (askCityName === "paris"){
+         if (askCityName === "Paris"){
         alert(`It is currently ${weather.paris.temp} in ${askCityName} with a humidity of ${weather.paris.humidity}%`);
          }
-         else if (askCityName === "tokyo"){
+         else if (askCityName === "Tokyo"){
         alert(`It is currently ${weather.tokyo.temp} in ${askCityName} with a humidity of ${weather.tokyo.humidity}%`);
          }
-         else if (askCityName === "lisbon"){
+         else if (askCityName === "Lisbon"){
         alert(`It is currently ${weather.lisbon.temp} in ${askCityName} with a humidity of ${weather.lisbon.humidity}%`);
          }
-         else if (askCityName === "san francisco"){
+         else if (askCityName === "San Francisco"){
         alert(`It is currently ${weather["san francisco"].temp} in ${askCityName}  with a humidity of ${weather["san francisco"].humidity}%`);
          }
-         else if (askCityName === "moscow"){
+         else if (askCityName === "Moscow"){
         alert(`It is currently ${weather.moscow.temp} in ${askCityName} with a humidity of ${weather.moscow.humidity}%`);
          } 
          else{
@@ -59,22 +71,33 @@ else {
     alert(`You didn't enter a city`);
 }
 }
+//Function convertToFahrenheit used for converting temperature to Fahrenheit.
+function convertToFahrenheit(event){
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  let temperature = temperatureElement.innerHTML;
+  temperature = Number(temperature);
+  temperatureElement.innerHTML = Math.round(((temperature) * 9) / 5 + 32);
+}
+
+//Function convertToCelcius used for converting Temp to Celcius.
+function convertToCelcius(event){
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  let temperature = temperatureElement.innerHTML;
+  temperature = Number(temperature);
+  temperatureElement.innerHTML = Math.round(((temperature) - 32) / 1.8);
+}
+
+//Search engine, when searching for a city, display the city name on the page after the user submits form.
 let form = document.querySelector("#search-form");
 form.addEventListener("submit",getCity);
 
-let currentTime = new Date();
-let days=["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-let currentDay = days[currentTime.getDay()];
-let currentHour = currentTime.getHours();
-let currentMinutes = currentTime.getMinutes();
-let date = `${currentDay} ${currentHour}:${currentMinutes}`;
 
-let BigDate =document.querySelector("#day-hour");
-BigDate.innerHTML = `${date}`;
+// Select F Link and call function to convert to Fahrenheit
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
-//function convertTemp() {
-//let selectedBigTemp = document.querySelector("#big-temperature");
-//selectedBigTemp.innerHTML = `${}`;
-//Celsius to Fahrenheit Formula: (°C * 1.8) + 32 = °F
-//Fahrenheit to Celsius Formula: (°F - 32) / 1.8 = °C
-//}
+// Select C Link and call function to convert to Celcius
+let celciusLink = document.querySelector("#celcius-link");
+celciusLink.addEventListener("click", convertToCelcius);
