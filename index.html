@@ -20,22 +20,16 @@
       <br />
       <h2>
         <span id="city-location">Los Angeles, CA</span>
-        <div id="day-hour">Monday 11:00 AM</div>Light Showers
+        <div id="day-hour">Monday 11:00 AM</div><span id="weather-description">Light Showers</span>
       </h2>
       <div class="float-left">
         <span class="temperature" id="temperature">19</span>
         <span class="units"><a href="#" id="celcius-link">°C</a> | <a href="#" id="fahrenheit-link">°F</a></span.
       </div>
-      <br />
-      <br />
-      <h3>Forecast Next 5 days</h3>
-    
-      <div class="row">
-        <div class="col"><strong>Tue</strong><br />90°F<br />74°F</div>
-        <div class="col"><strong>Wed</strong><br />82°F<br />77°F</div>
-        <div class="col"><strong>Thu</strong><br />79°F<br />65°F</div>
-        <div class="col"><strong>Fri</strong><br />80°F<br />71°F</div>
-        <div class="col"><strong>Sat</strong><br />85°F<br />66°F</div>
+      <div class="float-right">
+        <span>Humidity </span>
+        <span class="humidity" id="humidity">80</span>
+        <span>%</span>
       </div>
       <br />
       <form class="textbox" id="search-form">
@@ -44,8 +38,9 @@
           placeholder="What city would you like to look the weather up for?"
           id="search-text-input"
         />
-        <input type="submit" value="Search" />
+        <input type="Submit" value="Search" />
       </form>
+      <button class="button-current-temp" id="button-current-temp">Current</button>
     </div>
     <script src="src/script.js"></script>
   </body>

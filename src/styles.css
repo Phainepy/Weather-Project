@@ -20,3 +20,7 @@ h3 {
 .celcius-link {
   outline: 0;
 }
+
+.float-right {
+  text-align: right;
+}
