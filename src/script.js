@@ -1,4 +1,4 @@
-//Function handlePosition asks for Geolocation data and then uses it`
+//Function handlePosition asks for Geolocation data from the user and then feeds it to showCurrentTemp`
 function handlePosition(position){
   let latitude= position.coords.latitude;
   let longitude= position.coords.longitude;
@@ -8,12 +8,28 @@ function handlePosition(position){
   axios.get(apiUrl).then(showCurrentTemp);
   console.log(latitude);
   console.log(longitude);
+  console.log(apiUrl);
+}
+
+//Geolocation data is asked for when "current" button is clicked.
+function clickCurrentButton(event) {
+navigator.geolocation.getCurrentPosition(handlePosition);
 }
 
 //Function handles current temp showing.`
 function showCurrentTemp(response){
   let temperature = Math.round(response.data.main.temp);
-  console.log(`Current temp is ${temperature}°C`);
+  let humidity = response.data.main.humidity;
+  let weather = response.data.weather[0].description;
+  let city = response.data.name;
+  let changeTemp = document.querySelector("#temperature");
+  let changeHumidity = document.querySelector("#humidity");
+  let changeWeatherDescription = document.querySelector("#weather-description");
+  let changeCity = document.querySelector("#city-location");
+  changeCity.innerHTML = `${city}`;
+  changeTemp.innerHTML = `${temperature}`;
+  changeHumidity.innerHTML = `The Humidity is ${humidity}%`;
+  changeWeatherDescription.innerHTML = weather;
 }
 
 //Function handles current temp showing.`
@@ -33,7 +49,7 @@ function updateDisplay(response){
 function getCity(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-text-input");
-  let changeDate = document.querySelector("#city-location");
+  let changeCity = document.querySelector("#city-location");
   let units = "metric";
   let askCityName = searchInput.value;
   let apiKey = "d13aba718089eac946cbe226bfd205f4";
@@ -41,12 +57,16 @@ function getCity(event) {
   console.log(apiUrl);
   axios.get(apiUrl).then(updateDisplay)
   if (searchInput.value) {
-    changeDate.innerHTML = `${searchInput.value}`;
+    changeCity.innerHTML = `${searchInput.value}`;
   } else {
-    changeDate.innerHTML = null;
+    changeCity.innerHTML = null;
     alert("Please type a city");
   }
 }
+
+//Current button, clicking it calls functions.
+let currentButton = document.querySelector("#button-current-temp");
+currentButton.addEventListener("click", clickCurrentButton);
 
 //Search engine, when searching for a city, display the city name on the page after the user submits form.
 let form = document.querySelector("#search-form");
@@ -72,6 +92,6 @@ let date = `${currentDay} ${currentHour}:${currentMinutes}`;
 let BigDate = document.querySelector("#day-hour");
 BigDate.innerHTML = `${date}`;
 
-//Geolocation data
-navigator.geolocation.getCurrentPosition(handlePosition);
+
+
 
