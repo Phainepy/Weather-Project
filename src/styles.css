@@ -1,5 +1,7 @@
 .weather-app-wrapper {
   max-width: 400px;
+  border: 10px solid gray;
+  border-radius: 4px;
 }
 
 h1 {
