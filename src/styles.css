@@ -1,26 +1,11 @@
-h1 {
-  text-align: right;
-}
-.MainIcon {
-  display: block;
-  margin: 5;
-  padding-top: 10;
-}
-h3 {
-  text-align: right;
-  font-weight: 100;
-  font-size: small;
-}
-.textbox {
-  width: fit-content;
-}
-.fahrenheit-link {
-  outline: 0;
-}
-.celcius-link {
-  outline: 0;
+.weather-app-wrapper {
+  max-width: 400px;
 }
 
-.float-right {
-  text-align: right;
+h1 {
+  color: pink;
+}
+
+p {
+  color: red;
 }
