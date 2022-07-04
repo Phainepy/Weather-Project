@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <link ref="stylesheet" type="text/css" href="src/styles.css">
+  <link rel="stylesheet" type="text/css" href="src/styles.css">
 </head>
 
 <body>
@@ -22,17 +22,55 @@
               <input type="search" placeholder="Enter a city..." class="form-control search-input">
             </div>
             <div class="col-3 p-0">
-              <input type="submit" class="btn btn-primary w-100" value="Search">
+              <input type="submit" id="currentButton" class="btn btn-primary w-100" value="Search">
             </div>
           </div>
         </form>
-        <h1>
-          Weather in Los Angeles
-        </h1>
-        <p> Some paragraph text as well here. Have a couple of lines of text. </p>
+        <div class="weather-info">
+          <div class="row">
+            <div class="col-6">
+              <h1>
+                Los Angeles
+              </h1>
+              <ul>
+                <li><span id="day-hour">Monday 12:27 PM</span>, Sunny</li>
+                <li>Humidity <span class="HumidityValue">24</span>%</li>
+                <li>Precipitation <span class="PrecipitationValue">5</span>%</li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <div class="temperature-container d-flex justify-content-end">
+                <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny">
+                <span class=TemperatureValue>44</span><span class="unit"> °C |°F </span>
+              </div>
+            </div>
+          </div>
+          <div class="weather-forecast">
+            <div class="row">
+              <div class="col">
+                Monday
+              </div>
+              <div class="col">
+                Tuesday
+              </div>
+              <div class="col">
+                Wednesday
+              </div>
+              <div class="col">
+                Thursday
+              </div>
+              <div class="col">
+                Friday
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <a href="https://github.com/Phainepy/Weather-Project" target="_blank">Open-source code</a> by Sam Iva
+      <footer>
+        <a href="https://github.com/Phainepy/Weather-Project" target="_blank">Open-source code</a> by Sam Iva
+      </footer>
     </div>
+    <script src="src/script.js"></script>
 </body>
 
 </html>
