@@ -4,3 +4,5 @@
 
 #https://www.shecodes.io/
 #Utilizing JavaScript, CSS, HTML and hooking into a weather API.
+#Using Bootstrap to set up columns for a nicer view.
+#Using free version of the OpenWeather API.
