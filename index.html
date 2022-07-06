@@ -18,49 +18,34 @@
       <div class="weather-app">
         <form>
           <div class="row">
-            <div class="col-9">
-              <input type="search" placeholder="Enter a city..." class="form-control search-input">
+            <div class="col-8">
+              <input type="search" placeholder="Enter a city..." id="search-input" class="form-control search-input">
             </div>
-            <div class="col-3 p-0">
-              <input type="submit" id="currentButton" class="btn btn-primary w-100" value="Search">
+            <div class="col-2 p-0">
+              <input type="submit" id="submit" class="btn btn-primary w-100" value="Search">
+            </div>
+            <div class="col-2">
+              <button type="button" id="currentButton" class="btn btn-secondary">Current</button>
             </div>
           </div>
         </form>
         <div class="weather-info">
           <div class="row">
             <div class="col-6">
-              <h1>
-                Los Angeles
+              <h1 id="city">
               </h1>
               <ul>
-                <li><span id="day-hour">Monday 12:27 PM</span>, Sunny</li>
-                <li>Humidity <span class="HumidityValue">24</span>%</li>
-                <li>Precipitation <span class="PrecipitationValue">5</span>%</li>
+                <li><span id="day-hour"></span>, <span class="description" id="description"></span></li>
+                <br \>
+                <li><strong>Humidity:</strong> <span id="humidity"></span>%</li>
+                <li><strong>Wind Speed:</strong> <span id="wind"></span> Km/H</li>
               </ul>
             </div>
             <div class="col-6">
               <div class="temperature-container d-flex justify-content-end">
                 <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="Sunny">
-                <span class=TemperatureValue>44</span><span class="unit"> °C |°F </span>
-              </div>
-            </div>
-          </div>
-          <div class="weather-forecast">
-            <div class="row">
-              <div class="col">
-                Monday
-              </div>
-              <div class="col">
-                Tuesday
-              </div>
-              <div class="col">
-                Wednesday
-              </div>
-              <div class="col">
-                Thursday
-              </div>
-              <div class="col">
-                Friday
+                <span class=TemperatureValue id="temperature"></span><span class="unit"> <a href="#"
+                    id="celcius-link">°C</a> |<a href="#" id="fahrenheit-link">°F</a> </span>
               </div>
             </div>
           </div>
