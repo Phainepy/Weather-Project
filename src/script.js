@@ -6,12 +6,18 @@ function updateDisplay(response){
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
   let dateElement = document.querySelector("#day-hour");
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  let iconElement = document.querySelector("#icon");
+  let icon = (response.data.weather[0].icon);
+
+  celciusTemperature = response.data.main.temp;
+  
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
   cityElement.innerHTML = response.data.name;  
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formatDate(response.data.dt * 1000)
+  iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${icon}@2x.png`);
 }
 
 //Function uses the OpenWeatherAPI to look up the city.
@@ -47,7 +53,7 @@ function clickCurrentButton(event) {
 navigator.geolocation.getCurrentPosition(handlePosition);
 }
 
-//Function handles current temp showing.
+//Function handles current temp showing. This is what's showing right off of the bat without any user interaction.
 function showCurrentTemp(response){
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -55,12 +61,18 @@ function showCurrentTemp(response){
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
   let dateElement = document.querySelector("#day-hour");
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  let iconElement = document.querySelector("#icon");
+  let icon = (response.data.weather[0].icon);
+  
+  celciusTemperature = response.data.main.temp;
+
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
   cityElement.innerHTML = response.data.name;  
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formatDate(response.data.dt * 1000)
+  iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${icon}@2x.png`);
 }
 
 function minutes_with_leading_zeros(currentTime) {
@@ -86,6 +98,28 @@ function formatDate(timestamp){
   return `${day} ${hours}:${minutes}`;
 }
 
+//function to convert to Fahrenheit.
+function showFahrenheitTemperature (event){
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  let fahrenheitTemperature = ((celciusTemperature * 9) / 5 + 32);
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+  celciusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+}
+
+//function for back to Celcius
+function showCelciusTemperature (event){
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
+  let element = document.getElementById("#celcius-link");
+  celciusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+}
+
+let celciusTemperature = null;
+
 //Current button, clicking it calls functions.
 let currentButton = document.querySelector("#currentButton");
 currentButton.addEventListener("click", clickCurrentButton);
@@ -94,8 +128,16 @@ currentButton.addEventListener("click", clickCurrentButton);
 let form = document.querySelector("form");
 form.addEventListener("submit", getCity);
 
-
+//API Call
 let units = "metric"
 let apiKey = "d13aba718089eac946cbe226bfd205f4";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&units=${units}&appid=${apiKey}`;
 axios.get(apiUrl).then(showCurrentTemp);
+
+//Fahrenheit conversion
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", showFahrenheitTemperature);
+
+//back to Celcius
+let celciusLink = document.querySelector("#celcius-link");
+celciusLink.addEventListener("click", showCelciusTemperature);

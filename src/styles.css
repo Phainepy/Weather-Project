@@ -1,5 +1,5 @@
 .weather-app {
-  max-width: 600px;
+  max-width: 550px;
   border: 2px solid gray;
   border-radius: 5px;
   margin: 20px 5px 5px 5px;
@@ -9,7 +9,6 @@
 .weather-app form {
   margin-left: 15px;
   margin-right: 25px;
-  max-width: 600px;
 }
 
 .weather-info {
@@ -40,20 +39,45 @@
   font-weight: 500;
 }
 
+.weather-info .humidity {
+  color: #5f5f5f;
+}
+
+.weather-info .wind {
+  color: #5f5f5f;
+}
+
 .temperature-container .unit {
   position: relative;
-  line-height: 1;
-  top: 10px;
+  top: 20px;
 }
 
 .temperature-container .TemperatureValue {
   font-weight: 600;
   font-size: 60px;
-  line-height: 1;
+
+}
+
+.temperature-container {
+  padding-right: 10px;
+}
+
+.temperature-container img {
+  max-width: 90px;
 }
 
 .weather-forecast {
   margin: 30px;
+}
+
+.temperature-container .active {
+  color: black;
+  text-decoration: none;
+  cursor: default;
+}
+
+.temperature-container .active:hover {
+  text-decoration: none;
 }
 
 footer {
