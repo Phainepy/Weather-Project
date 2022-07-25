@@ -1,5 +1,6 @@
 //Function will only run when the Submit button is hit. Using event listener on the form.
 function updateDisplay(response){
+  console.log("RESPONSE", response);
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#description");
@@ -18,6 +19,7 @@ function updateDisplay(response){
   windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formatDate(response.data.dt * 1000)
   iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${icon}@2x.png`);
+  getForecast(response.data.coord);
 }
 
 //Function uses the OpenWeatherAPI to look up the city.
@@ -98,33 +100,6 @@ function formatDay(timestamp){
   return days[day];
 }
 
-function displayForecast(response){
-  let forecast = response.data.daily;
-
-  let forecastElement = document.querySelector("#weather-forecast");
-
-  let forecastHTML = `<div class="row">`;
-  forecast.forEach(function (forecastDay, index) {
-  if (index < 5){
-  forecastHTML = forecastHTML + 
-  `
-      <div class="col">
-      <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
-      <img class="weather-forecast-img" 
-      src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
-      alt=""
-      width="45px">
-      <div class="weather-forecast-temp">
-        <span class="weather-forecast-temp-maximum">${Math.round(forecastDay.temp.max)}°</span> <span
-          class="weather-forecast-temp-minimum">${Math.round(forecastDay.temp.min)}°</span>
-      </div>
-      </div>
-    `;
-  }
-  });
-  forecastHTML = forecastHTML +`</div>`;
-  forecastElement.innerHTML = forecastHTML;
-  }
 
 
 function formatDate(timestamp){
@@ -167,6 +142,36 @@ function showCelciusTemperature (event){
 
 let celciusTemperature = null;
 
+function displayForecast(response){
+  let forecast = response.data.daily;
+
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+  if (index < 5){
+  forecastHTML = forecastHTML + 
+  `
+      <div class="col">
+      <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+      <img class="weather-forecast-img" 
+      src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
+      alt=""
+      width="45px">
+      <div class="weather-forecast-temp">
+        <span class="weather-forecast-temp-maximum">${Math.round(forecastDay.temp.max)}°</span> <span
+          class="weather-forecast-temp-minimum">${Math.round(forecastDay.temp.min)}°</span>
+      </div>
+      </div>
+    `;
+    console.log(response.data);
+  }
+  });
+  forecastHTML = forecastHTML +`</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  }
+
+  
 //Current button, clicking it calls functions.
 let currentButton = document.querySelector("#currentButton");
 currentButton.addEventListener("click", clickCurrentButton);
@@ -182,8 +187,6 @@ let units = "metric"
 let apiKey = "d13aba718089eac946cbe226bfd205f4";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&units=${units}&appid=${apiKey}`;
 axios.get(apiUrl).then(showCurrentTemp);
-
-//API Call Weather Forecast
 
 
 //Fahrenheit conversion
