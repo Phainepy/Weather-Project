@@ -53,6 +53,14 @@ function clickCurrentButton(event) {
 navigator.geolocation.getCurrentPosition(handlePosition);
 }
 
+//Function to get forecast based off of coordinates.
+function getForecast(coordinates) {
+  let apiKey = "d13aba718089eac946cbe226bfd205f4";
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
+
 //Function handles current temp showing. This is what's showing right off of the bat without any user interaction.
 function showCurrentTemp(response){
   let temperatureElement = document.querySelector("#temperature");
@@ -63,7 +71,7 @@ function showCurrentTemp(response){
   let dateElement = document.querySelector("#day-hour");
   let iconElement = document.querySelector("#icon");
   let icon = (response.data.weather[0].icon);
-  
+
   celciusTemperature = response.data.main.temp;
 
   temperatureElement.innerHTML = Math.round(celciusTemperature);
@@ -73,12 +81,51 @@ function showCurrentTemp(response){
   windElement.innerHTML = Math.round(response.data.wind.speed);
   dateElement.innerHTML = formatDate(response.data.dt * 1000)
   iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${icon}@2x.png`);
+
+  getForecast(response.data.coord);
 }
 
 function minutes_with_leading_zeros(currentTime) {
   //Function will add leading 0's to the current time so that the time looks normal if it's a single digit for the minute. 
   return (currentTime.getMinutes() < 10 ? '0' : '') + currentTime.getMinutes();
 }
+
+function formatDay(timestamp){
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  
+  return days[day];
+}
+
+function displayForecast(response){
+  let forecast = response.data.daily;
+
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+  if (index < 5){
+  forecastHTML = forecastHTML + 
+  `
+      <div class="col">
+      <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+      <img class="weather-forecast-img" 
+      src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
+      alt=""
+      width="45px">
+      <div class="weather-forecast-temp">
+        <span class="weather-forecast-temp-maximum">${Math.round(forecastDay.temp.max)}°</span> <span
+          class="weather-forecast-temp-minimum">${Math.round(forecastDay.temp.min)}°</span>
+      </div>
+      </div>
+    `;
+  }
+  });
+  forecastHTML = forecastHTML +`</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  }
+
 
 function formatDate(timestamp){
   //calculate the date
@@ -128,11 +175,16 @@ currentButton.addEventListener("click", clickCurrentButton);
 let form = document.querySelector("form");
 form.addEventListener("submit", getCity);
 
-//API Call
+
+
+//API Call Weather Search
 let units = "metric"
 let apiKey = "d13aba718089eac946cbe226bfd205f4";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&units=${units}&appid=${apiKey}`;
 axios.get(apiUrl).then(showCurrentTemp);
+
+//API Call Weather Forecast
+
 
 //Fahrenheit conversion
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
