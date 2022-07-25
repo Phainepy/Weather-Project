@@ -70,6 +70,24 @@
   margin: 30px;
 }
 
+.weather-forecast-date {
+  color: #5f5f5f;
+  text-align: center;
+}
+
+.weather-forecast-temp {
+  text-align: center;
+}
+
+.weather-forecast-temp-minimum {
+  color: #5f5f5f
+}
+
+.weather-forecast-img {
+  display: block;
+  margin: 0 auto;
+}
+
 .temperature-container .active {
   color: black;
   text-decoration: none;
