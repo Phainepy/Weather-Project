@@ -100,8 +100,6 @@ function formatDay(timestamp){
   return days[day];
 }
 
-
-
 function formatDate(timestamp){
   //calculate the date
    let days = [
