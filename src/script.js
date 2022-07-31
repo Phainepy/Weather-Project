@@ -10,9 +10,9 @@ function updateDisplay(response){
   let iconElement = document.querySelector("#icon");
   let icon = (response.data.weather[0].icon);
 
-  celciusTemperature = response.data.main.temp;
+  fahrenheitTemperature = response.data.main.temp;
   
-  temperatureElement.innerHTML = Math.round(celciusTemperature);
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
   cityElement.innerHTML = response.data.name;  
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
@@ -27,7 +27,7 @@ function getCity(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-input");
   let changeCity = document.querySelector("#city");
-  let units = "metric";
+  let units = "imperial";
   let askCityName = searchInput.value;
   let apiKey = "d13aba718089eac946cbe226bfd205f4";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${askCityName}&units=${units}&appid=${apiKey}`;
@@ -44,7 +44,7 @@ function getCity(event) {
 function handlePosition(position){
   let latitude= position.coords.latitude;
   let longitude= position.coords.longitude;
-  let units = "metric";
+  let units = "imperial";
   let apiKey = "d13aba718089eac946cbe226bfd205f4";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&appid=${apiKey}`;
   axios.get(apiUrl).then(showCurrentTemp);
@@ -58,7 +58,7 @@ navigator.geolocation.getCurrentPosition(handlePosition);
 //Function to get forecast based off of coordinates.
 function getForecast(coordinates) {
   let apiKey = "d13aba718089eac946cbe226bfd205f4";
-  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
@@ -74,9 +74,9 @@ function showCurrentTemp(response){
   let iconElement = document.querySelector("#icon");
   let icon = (response.data.weather[0].icon);
 
-  celciusTemperature = response.data.main.temp;
+  fahrenheitTemperature = response.data.main.temp;
 
-  temperatureElement.innerHTML = Math.round(celciusTemperature);
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
   cityElement.innerHTML = response.data.name;  
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
@@ -117,28 +117,6 @@ function formatDate(timestamp){
 
   return `${day} ${hours}:${minutes}`;
 }
-
-//function to convert to Fahrenheit.
-function showFahrenheitTemperature (event){
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  let fahrenheitTemperature = ((celciusTemperature * 9) / 5 + 32);
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-  celciusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-}
-
-//function for back to Celcius
-function showCelciusTemperature (event){
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(celciusTemperature);
-  let element = document.getElementById("#celcius-link");
-  celciusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-}
-
-let celciusTemperature = null;
 
 function displayForecast(response){
   let forecast = response.data.daily;
@@ -181,16 +159,7 @@ form.addEventListener("submit", getCity);
 
 
 //API Call Weather Search
-let units = "metric"
+let units = "imperial"
 let apiKey = "d13aba718089eac946cbe226bfd205f4";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&units=${units}&appid=${apiKey}`;
 axios.get(apiUrl).then(showCurrentTemp);
-
-
-//Fahrenheit conversion
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", showFahrenheitTemperature);
-
-//back to Celcius
-let celciusLink = document.querySelector("#celcius-link");
-celciusLink.addEventListener("click", showCelciusTemperature);
